@@ -10,6 +10,10 @@ fn main() {
         match stream {
             Ok(_stream) => {
                 println!("accepted new connection");
+
+                let mut buf = [0; 512];
+                stream.read(&mut buf).unwrap();
+                stream.write("+PONG\r\n".as_bytes()).unwrap();
             }
             Err(e) => {
                 println!("error: {}", e);
